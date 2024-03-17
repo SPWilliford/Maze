@@ -1,29 +1,61 @@
-[gd_scene load_steps=5 format=3 uid="uid://cwb1gjw8clifr"]
+[gd_scene load_steps=10 format=3 uid="uid://cwb1gjw8clifr"]
 
 [ext_resource type="Script" path="res://Game.gd" id="1_3fw0o"]
 [ext_resource type="Script" path="res://Maze.gd" id="2_syxn0"]
-[ext_resource type="PackedScene" uid="uid://cxmcqi6sw2n2" path="res://Floor.tscn" id="3_f6krv"]
-[ext_resource type="PackedScene" uid="uid://coblm1t1w65wm" path="res://Wall.tscn" id="4_dmqmn"]
+[ext_resource type="PackedScene" uid="uid://uv0x1s8766hr" path="res://wall_instance.tscn" id="3_syjce"]
+[ext_resource type="PackedScene" uid="uid://bywa3lou02qwl" path="res://floor_instance.tscn" id="4_xmg6y"]
+[ext_resource type="Script" path="res://Player.gd" id="5_1op5b"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yj5cm"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_kb1jc"]
+sky_material = SubResource("ProceduralSkyMaterial_yj5cm")
+
+[sub_resource type="Environment" id="Environment_y5llp"]
+background_mode = 2
+sky = SubResource("Sky_kb1jc")
+tonemap_mode = 2
+glow_enabled = true
+volumetric_fog_density = 0.028
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jwhiw"]
+radius = 0.1
+height = 0.5
 
 [node name="GameNode" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0436668, 0, -0.043668)
 script = ExtResource("1_3fw0o")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.707107, -0.244163, 0.663615, 0, 0.938493, 0.345298, -0.707107, -0.244163, 0.663615, 50, 20, 0)
-projection = 1
-current = true
-fov = 72.8
-size = 40.104
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.951057, -0.287317, 0.113757, 0, 0.368125, 0.929776, -0.309017, -0.88427, 0.350107, 10, 30, 10)
-
 [node name="MazeNode" type="Node3D" parent="."]
 script = ExtResource("2_syxn0")
 
-[node name="Floor" parent="MazeNode" instance=ExtResource("3_f6krv")]
+[node name="WallInstance" parent="MazeNode" instance=ExtResource("3_syjce")]
 visible = false
 
-[node name="Wall" parent="MazeNode" instance=ExtResource("4_dmqmn")]
+[node name="FloorInstance" parent="MazeNode" instance=ExtResource("4_xmg6y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+visible = false
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_y5llp")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Player" type="CharacterBody3D" parent="."]
+visible = false
+script = ExtResource("5_1op5b")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+visible = false
+shape = SubResource("CapsuleShape3D_jwhiw")
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
 visible = false
