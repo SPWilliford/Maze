@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cwb1gjw8clifr"]
+[gd_scene load_steps=11 format=3 uid="uid://cwb1gjw8clifr"]
 
 [ext_resource type="Script" path="res://Game.gd" id="1_3fw0o"]
 [ext_resource type="Script" path="res://Maze.gd" id="2_syxn0"]
@@ -20,9 +20,12 @@ tonemap_mode = 2
 glow_enabled = true
 volumetric_fog_density = 0.028
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jwhiw"]
-radius = 0.1
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_dob6j"]
+radius = 0.2
 height = 0.5
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_atyg7"]
+points = PackedVector3Array(-0.0506042, -0.0980933, -0.186441, 0.0248959, 0.0984098, 0.191459, -0.0205468, 0.0986979, 0.192024, 0.00216456, 0.228234, -0.0890677, 0.192023, -0.0987058, -0.0205406, -0.16356, -0.150673, 0.0549106, -0.186915, 0.113463, -0.0280625, 0.0324093, -0.219248, 0.10047, 0.168184, 0.120739, -0.0808113, 0.152432, 0.0901523, 0.12236, 0.0475646, -0.196644, -0.126344, 0.0173946, 0.235843, 0.0706554, 0.0097524, 0.0909085, -0.194818, 0.0474034, -0.113066, 0.18309, -0.133177, 0.0827059, 0.145096, 0.122207, -0.0750275, -0.155402, -0.140766, -0.165507, -0.0805853, -0.125106, 0.0973441, -0.147608, -0.0880563, -0.112791, 0.167624, -0.111086, 0.203885, 0.0625489, 0.152383, -0.157752, 0.0697426, -0.0661151, -0.23539, 0.0325692, 0.123633, 0.204898, 0.0249753, 0.100764, -0.219906, -0.0281246, -0.178334, -0.0601862, -0.0880821, -0.186189, -0.0602861, 0.0699656, -0.0961201, 0.21938, -0.0431676, 0.191683, 0.0757868, 0.0476804, 0.107126, 0.142455, -0.140304, 0.159977, -0.0826417, 0.114888, -0.0431745, -0.219381, -0.0961158, 0.0324964, 0.181916, 0.146215)
 
 [node name="GameNode" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0436668, 0, -0.043668)
@@ -51,11 +54,14 @@ shadow_enabled = true
 visible = false
 script = ExtResource("5_1op5b")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-visible = false
-shape = SubResource("CapsuleShape3D_jwhiw")
-
 [node name="Camera3D" type="Camera3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
 visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+visible = false
+mesh = SubResource("CapsuleMesh_dob6j")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+visible = false
+shape = SubResource("ConvexPolygonShape3D_atyg7")
