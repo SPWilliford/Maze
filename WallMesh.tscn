@@ -1,6 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://dspdrvnyy7rmb"]
+[gd_scene load_steps=4 format=3 uid="uid://dspdrvnyy7rmb"]
+
+[ext_resource type="Texture2D" uid="uid://b1qgp162w63ft" path="res://textures/High-Resolution-Black-Concrete-Texture-For-Free.jpg" id="1_7cwbh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_88gbw"]
+albedo_texture = ExtResource("1_7cwbh")
 
 [sub_resource type="BoxMesh" id="BoxMesh_ceef6"]
+material = SubResource("StandardMaterial3D_88gbw")
 size = Vector3(1, 2, 0.1)
 
 [node name="Wall" type="MeshInstance3D"]
