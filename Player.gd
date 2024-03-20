@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
-const SPEED = 3.0
-const JUMP_VELOCITY = 4.5
+const SPEED = 1.0
+const JUMP_VELOCITY = 2.5
 var sensitivity = 0.5
 var camera_pitch = 0.0
 

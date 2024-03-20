@@ -15,19 +15,24 @@ func setup_maze(size):
 
 func place_outer_walls():
 	var wall_scene = preload("res://wall_instance.tscn")
+	var material = preload("res://materials/wall_material.tres") # Load your saved material
 	for i in range(maze_size):
 		if i != 0:
 			var wall_instance1 = wall_scene.instantiate()
+			wall_instance1.get_node("MeshInstance3D").material_override = material
 			wall_instance1.transform.origin = Vector3(i + 0.5, 1, 0)
 			add_child(wall_instance1)
 		if i != maze_size - 1:
 			var wall_instance2 = wall_scene.instantiate()
+			wall_instance2.get_node("MeshInstance3D").material_override = material
 			wall_instance2.transform.origin = Vector3(i + 0.5, 1, -maze_size)
 			add_child(wall_instance2)
 		
 	for i in range(maze_size):
 		var wall_instance3 = wall_scene.instantiate()
+		wall_instance3.get_node("MeshInstance3D").material_override = material
 		var wall_instance4 = wall_scene.instantiate()
+		wall_instance4.get_node("MeshInstance3D").material_override = material
 		wall_instance3.transform.origin = Vector3(0, 1, -i - 0.5)
 		wall_instance4.transform.origin = Vector3(maze_size, 1, -i - 0.5)
 		wall_instance3.rotate(Vector3(0, 1, 0), PI / 2)
@@ -75,7 +80,9 @@ func merge_sets(set1, set2, sets):
 
 func place_horizontal_wall(cell_index_1, cell_index_2):
 	var wall_scene = preload("res://wall_instance.tscn")
+	var material = preload("res://materials/wall_material.tres") # Load your saved material
 	var wall_instance = wall_scene.instantiate()
+	wall_instance.get_node("MeshInstance3D").material_override = material
 	var col1 = cell_index_1 % maze_size
 	var row1 = int(cell_index_1 / maze_size)
 	var pos_x = col1 + 0.5
@@ -85,7 +92,9 @@ func place_horizontal_wall(cell_index_1, cell_index_2):
 
 func place_vertical_wall(cell_index_1, cell_index_2):
 	var wall_scene = preload("res://wall_instance.tscn")
+	var material = preload("res://materials/wall_material.tres") # Load your saved material
 	var wall_instance = wall_scene.instantiate()
+	wall_instance.get_node("MeshInstance3D").material_override = material
 	var col1 = cell_index_1 % maze_size
 	var row1 = int(cell_index_1 / maze_size)
 	var pos_x = col1 + 1.0
@@ -96,9 +105,11 @@ func place_vertical_wall(cell_index_1, cell_index_2):
 
 func place_floor_tiles():
 	var floor_scene = preload("res://floor_instance.tscn")
+	var material = preload("res://materials/wall_material.tres")
 	for x in range(maze_size):
 		for z in range(maze_size):
 			var floor_tile = floor_scene.instantiate()
+			floor_tile.get_node("MeshInstance3D").material_override = material
 			floor_tile.transform.origin = Vector3(x + 0.5, 0.9, -z - 0.5)
 			add_child(floor_tile)
 

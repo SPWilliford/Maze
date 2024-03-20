@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1qgp162w63ft"
-path.s3tc="res://.godot/imported/High-Resolution-Black-Concrete-Texture-For-Free.jpg-88f5671306c10b1c22949eb04f42f539.s3tc.ctex"
+uid="uid://mlu3n55l6085"
+path.s3tc="res://.godot/imported/starry_sky_stars_milky_way_galaxy_4k_hd_space-1920x1080.jpg-b51a2cbceac93cd016d4d1bffb975616.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://textures/High-Resolution-Black-Concrete-Texture-For-Free.jpg"
-dest_files=["res://.godot/imported/High-Resolution-Black-Concrete-Texture-For-Free.jpg-88f5671306c10b1c22949eb04f42f539.s3tc.ctex"]
+source_file="res://textures/starry_sky_stars_milky_way_galaxy_4k_hd_space-1920x1080.jpg"
+dest_files=["res://.godot/imported/starry_sky_stars_milky_way_galaxy_4k_hd_space-1920x1080.jpg-b51a2cbceac93cd016d4d1bffb975616.s3tc.ctex"]
 
 [params]
 
