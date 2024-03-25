@@ -2,7 +2,8 @@ extends Node3D
 
 @onready var maze = $MazeNode
 
-var default_maze_size = 30  
+var default_maze_size = 10
+  
 
 func _ready():
 	start_game(default_maze_size)

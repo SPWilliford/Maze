@@ -4,7 +4,7 @@ var maze_size
 var sets = {}
 var walls = []
 var removed_walls = []
-	
+
 func setup_maze(size):
 	maze_size = size
 	place_outer_walls()
@@ -25,7 +25,7 @@ func place_outer_walls():
 		if i != maze_size - 1:
 			var wall_instance2 = wall_scene.instantiate()
 			wall_instance2.get_node("MeshInstance3D").material_override = material
-			wall_instance2.transform.origin = Vector3(i + 0.5, 1, -maze_size)
+			wall_instance2.transform.origin = Vector3(i + 0.5,1, -maze_size)
 			add_child(wall_instance2)
 		
 	for i in range(maze_size):
@@ -78,6 +78,22 @@ func merge_sets(set1, set2, sets):
 			if sets[key] == root2:
 				sets[key] = root1;
 
+func place_painting_near_wall(pos_x, pos_z, is_vertical):
+	var painting_scene = preload("res://painting.tscn")
+	var painting_instance = painting_scene.instantiate()
+	var offset = Vector3(0, -0.35, 0)  # Adjust as needed
+	if is_vertical:
+		offset = Vector3(0.06, 0, 0)  # Example offset for vertical wall
+		painting_instance.rotate_x(deg_to_rad(90))
+		painting_instance.rotate_y(deg_to_rad(90))
+	else:
+		offset = Vector3(0, 0, -0.06)
+		painting_instance.rotate_x(deg_to_rad(90))
+		painting_instance.rotate_y(deg_to_rad(180))
+	painting_instance.transform.origin = Vector3(pos_x, 0.6, pos_z) + offset
+	painting_instance.scale = Vector3(0.5, 0.5, 0.5)
+	add_child(painting_instance)
+
 func place_horizontal_wall(cell_index_1, cell_index_2):
 	var wall_scene = preload("res://wall_instance.tscn")
 	var material = preload("res://materials/wall_material.tres") # Load your saved material
@@ -89,6 +105,9 @@ func place_horizontal_wall(cell_index_1, cell_index_2):
 	var pos_z = -(row1 + 1)
 	wall_instance.transform.origin = Vector3(pos_x, 1, pos_z)
 	add_child(wall_instance)
+	if randf() < 0.9:
+		place_painting_near_wall(pos_x, pos_z, false)
+		
 
 func place_vertical_wall(cell_index_1, cell_index_2):
 	var wall_scene = preload("res://wall_instance.tscn")
@@ -102,15 +121,17 @@ func place_vertical_wall(cell_index_1, cell_index_2):
 	wall_instance.transform.origin = Vector3(pos_x, 1, pos_z)
 	wall_instance.rotate_object_local(Vector3(0, 1, 0), PI / 2)
 	add_child(wall_instance)
+	if randf() < 0.9:
+		place_painting_near_wall(pos_x, pos_z, true)
 
 func place_floor_tiles():
 	var floor_scene = preload("res://floor_instance.tscn")
-	var material = preload("res://materials/wall_material.tres")
+	var material = preload("res://materials/floor_material.tres")
 	for x in range(maze_size):
 		for z in range(maze_size):
 			var floor_tile = floor_scene.instantiate()
 			floor_tile.get_node("MeshInstance3D").material_override = material
-			floor_tile.transform.origin = Vector3(x + 0.5, 0.9, -z - 0.5)
+			floor_tile.transform.origin = Vector3(x + 0.5, 0.1, -z - 0.5)
 			add_child(floor_tile)
 
 func visualize_maze():

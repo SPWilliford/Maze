@@ -10,8 +10,8 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	timer += delta
-	if timer >= 0.2: # Adjust the flicker speed
+	if timer >= 0.1: # Adjust the flicker speed
 		timer = 0
-		omni_range = randf_range(0.7, 1.1)
+		omni_range = randf_range(1.9, 2.3)
 		omni_attenuation = randf_range(0.3, 0.5)
 

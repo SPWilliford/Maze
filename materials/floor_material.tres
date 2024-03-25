@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" load_steps=5 format=3 uid="uid://8wxdt4k42doc"]
+
+[ext_resource type="Texture2D" uid="uid://b723gj5t5y4da" path="res://textures/FloorDiffuse.png" id="1_xrygu"]
+[ext_resource type="Texture2D" uid="uid://dt84arbxkln0f" path="res://textures/FloorAmbientOcclusion.png" id="2_j1wvm"]
+[ext_resource type="Texture2D" uid="uid://cyonry7ffapfh" path="res://textures/FloorSpacular.png" id="3_sjb1h"]
+[ext_resource type="Texture2D" uid="uid://wn7nrbw31aow" path="res://textures/FloorNormal.png" id="4_6frio"]
+
+[resource]
+albedo_texture = ExtResource("1_xrygu")
+metallic = 1.0
+metallic_texture = ExtResource("3_sjb1h")
+normal_enabled = true
+normal_texture = ExtResource("4_6frio")
+ao_enabled = true
+ao_texture = ExtResource("2_j1wvm")
