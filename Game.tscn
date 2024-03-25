@@ -5,8 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://uv0x1s8766hr" path="res://wall_instance.tscn" id="3_syjce"]
 [ext_resource type="PackedScene" uid="uid://bywa3lou02qwl" path="res://floor_instance.tscn" id="4_xmg6y"]
 [ext_resource type="Script" path="res://Player.gd" id="5_1op5b"]
+[ext_resource type="PackedScene" uid="uid://cksmnded1kuvh" path="res://painting.tscn" id="5_sasyh"]
 [ext_resource type="Script" path="res://OmniLight3D.gd" id="6_uh4l7"]
-[ext_resource type="Texture2D" uid="uid://mlu3n55l6085" path="res://textures/starry_sky_stars_milky_way_galaxy_4k_hd_space-1920x1080.jpg" id="6_xh40r"]
+[ext_resource type="AudioStream" uid="uid://dqu3bukc833tj" path="res://sounds/Ejimas1.ogg" id="8_cd1iq"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_dob6j"]
 radius = 0.05
@@ -16,20 +17,13 @@ height = 0.1
 radius = 0.05
 height = 0.1
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_xo7lp"]
-panorama = ExtResource("6_xh40r")
+[sub_resource type="Sky" id="Sky_dj5ws"]
 
-[sub_resource type="Sky" id="Sky_5a3t5"]
-sky_material = SubResource("PanoramaSkyMaterial_xo7lp")
-
-[sub_resource type="Environment" id="Environment_j5b2l"]
+[sub_resource type="Environment" id="Environment_qdr1w"]
 background_mode = 2
-sky = SubResource("Sky_5a3t5")
-ambient_light_energy = 6.28
-glow_enabled = true
-glow_normalized = true
-volumetric_fog_enabled = true
-volumetric_fog_density = 0.0665
+sky = SubResource("Sky_dj5ws")
+fog_enabled = true
+fog_light_color = Color(0, 0, 0, 1)
 
 [node name="GameNode" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0436668, 0, -0.043668)
@@ -43,6 +37,9 @@ visible = false
 
 [node name="FloorInstance" parent="MazeNode" instance=ExtResource("4_xmg6y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+visible = false
+
+[node name="Painting" parent="MazeNode" instance=ExtResource("5_sasyh")]
 visible = false
 
 [node name="Player" type="CharacterBody3D" parent="."]
@@ -64,11 +61,13 @@ shape = SubResource("CapsuleShape3D_e7tfn")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08, 0)
 light_color = Color(1, 0.654902, 0.368627, 1)
 light_energy = 0.3
-light_indirect_energy = 0.3
-light_volumetric_fog_energy = 0.914
+light_size = 0.301
 shadow_enabled = true
-omni_range = 1.094
+omni_attenuation = 3.03143
 script = ExtResource("6_uh4l7")
 
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Player"]
+stream = ExtResource("8_cd1iq")
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_j5b2l")
+environment = SubResource("Environment_qdr1w")
